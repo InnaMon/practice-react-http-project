@@ -13,16 +13,19 @@ class Blog extends Component {
     componentDidMount() {
         fetch('https://jsonplaceholder.typicode.com/posts')
         .then(response => response.json())
-        .then(content => setState({ posts: content }));
+        .then(content => this.setState({ posts: content }));
+        // .then(content => console.log('response', content));
     }
 
     render () {
+        const posts = this.state.posts.map(post => {
+            return <Post key={post.id} title={post.title}/>
+        });
+
         return (
             <div>
                 <section className="Posts">
-                    <Post />
-                    <Post />
-                    <Post />
+                    { posts }
                 </section>
                 <section>
                     <FullPost />
