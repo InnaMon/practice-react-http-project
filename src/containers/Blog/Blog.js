@@ -6,6 +6,16 @@ import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 
 class Blog extends Component {
+    state = {
+        posts: []
+    }
+    
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+        .then(posts => console.log('response', posts));
+    }
+
     render () {
         return (
             <div>
