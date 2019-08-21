@@ -9,6 +9,22 @@ class NewPost extends Component {
         author: 'Max'
     }
 
+    postDataHandler = () => {
+        const data = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        }
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST', 
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers:{
+                'Content-Type': 'application/json'
+            }
+          }).then(response => response.json())
+          .then(data => console.log('data', data))
+    }
+
     render () {
         return (
             <div className="NewPost">
@@ -22,7 +38,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={this.postDataHandler}>Add Post</button>
             </div>
         );
     }
