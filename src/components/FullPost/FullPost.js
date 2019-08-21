@@ -19,6 +19,14 @@ class FullPost extends Component {
         }
     }
 
+    deletePost = () => {
+        fetch('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+        .then(response => response.json())
+        .then(post =>
+            console.log('delete post:', post)
+        );
+    }
+
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
         // check that a props.id exists and display loading since will recieve 
@@ -34,7 +42,7 @@ class FullPost extends Component {
                     <h1>{this.state.loadedPost.title}</h1>
                     <p>{this.state.loadedPost.body}</p>
                     <div className="Edit">
-                        <button className="Delete">Delete</button>
+                        <button onClick={this.deletePost}className="Delete">Delete</button>
                     </div>
                 </div>
     
