@@ -30,7 +30,8 @@ class NewPost extends Component {
           .then(response => response.json())
           .then(data => {
               console.log('data', data)
-              this.setState({submitted: true})
+              this.props.history.push('/posts');
+            //   this.setState({submitted: true})
           })
     }
 
