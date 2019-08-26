@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-
+import { Redirect } from 'react-router-dom';
 import './NewPost.css';
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submitted: false
     }
 
     componentDidMount() {
@@ -27,12 +28,20 @@ class NewPost extends Component {
             }
           })
           .then(response => response.json())
-          .then(data => console.log('data', data))
+          .then(data => {
+              console.log('data', data)
+              this.setState({submitted: true})
+          })
     }
 
     render () {
+        let redirect = null;
+        if (this.state.submitted) {
+            redirect = <Redirect to="/posts" />;
+        }
         return (
             <div className="NewPost">
+            {redirect}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
