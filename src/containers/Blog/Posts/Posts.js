@@ -4,10 +4,13 @@ import './Posts.css';
 
 class Posts extends Component {
     state = {
-        posts: []
+        posts: [],
+        error: false,
+        selectedPostId: null
     }
 
     componentDidMount() {
+        console.log('Posts props:', this.props)
         fetch('https://jsonplaceholder.typicode.com/posts')
         .then(response => response.json())
         .then(content => {
@@ -23,7 +26,7 @@ class Posts extends Component {
         })
         .catch(error => {
             console.log('error:', error);
-            // this.setState({error: true});
+            this.setState({error: true});
         });
     }
 
