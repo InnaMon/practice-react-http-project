@@ -7,10 +7,11 @@ class FullPost extends Component {
         loadedPost: null
     }
 
-    componentDidUpdate() {
-        if (this.props.id) {
+    componentDidMount() {
+        console.log('Full Post', this.props)
+        if (this.props.match.params.id) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-                fetch('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+                fetch('https://jsonplaceholder.typicode.com/posts/' + this.props.match.params.id)
                 .then(response => response.json())
                 .then(post => 
                     // console.log('postid:', post)
