@@ -9,8 +9,16 @@ class FullPost extends Component {
 
     componentDidMount() {
         console.log('Full Post', this.props)
+        this.loadData();
+    }
+
+    componentDidUpdate() {
+        this.loadData();
+    }
+
+    loadData = () => {
         if (this.props.match.params.id) {
-            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
+            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)) {
                 fetch('https://jsonplaceholder.typicode.com/posts/' + this.props.match.params.id)
                 .then(response => response.json())
                 .then(post => 
@@ -21,7 +29,7 @@ class FullPost extends Component {
     }
 
     deletePost = () => {
-        fetch('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+        fetch('https://jsonplaceholder.typicode.com/posts/' + this.props.match.params.id)
         .then(response => response.json())
         .then(post =>
             console.log('delete post:', post)
@@ -32,7 +40,7 @@ class FullPost extends Component {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
         // check that a props.id exists and display loading since will recieve 
         // props before het new loadedPost state due to asynch behavior of fetching data in componentDidUpdate
-        if (this.props.id) {
+        if (this.props.match.params.id) {
             <p style={{textAlign: 'center'}}>Loading...!</p>
         }
 
